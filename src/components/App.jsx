@@ -11,6 +11,22 @@ export class App extends Component {
     filter: '',
   };
 
+
+  //Metoda jest wywoływana po zamontowaniu komponentu w drzewie DOM. Służy do sprawdzenia, czy w 'localtorage' istnieją wcześniej zappisane kontakty po kluczem 'contacts'. Jeśli istnieją to są pobierane i parsowane z JSON do obiektu JavaScript, a potem ustawiane jako stan 'contacts' za pomocą setState(). Dzięki temu, gdy użytkownik odświeży stronę lub przeładuje aplikację, wcześniej zapisane kontakty zostaną wczytane i wyświetlone.
+  componentDidMount() {
+    const storedContacts = localStorage.getItem('contacts');
+    if (storedContacts) {
+      this.setState({ contacts: JSON.parse(storedContacts) });
+    }
+  }
+
+  //Metoda jest wywoływana po każdej aktualizacji komponentu. Porównujemy w niej poprzedni stan kontaktów (prevState.contacts) z aktualnym stanem kontaktów (this.state.contacts). Jeśli poprzedni stan jest różny od aktualnego, oznacza to, że stan kontaktów został zaktualizowany( użytkownik doda nowy kontakt lub usunie), więc zapisujemy nowy stan kontaktów do localStorage. Nowy stan jest zapisywany jako JSON za pomocą JSON.stringify(), aby można go było przechowywać w localStorage. To zapewnia trwałe przechowywanie danych nawet po ponownym załadowaniu strony lub odświeżeniu aplikacji.
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   handleSubmit = contact => {
     const { name, number } = contact;
 
