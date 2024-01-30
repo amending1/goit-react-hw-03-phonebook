@@ -21,6 +21,7 @@ export class App extends Component {
   }
 
   //Metoda jest wywoływana po każdej aktualizacji komponentu. Porównujemy w niej poprzedni stan kontaktów (prevState.contacts) z aktualnym stanem kontaktów (this.state.contacts). Jeśli poprzedni stan jest różny od aktualnego, oznacza to, że stan kontaktów został zaktualizowany( użytkownik doda nowy kontakt lub usunie), więc zapisujemy nowy stan kontaktów do localStorage. Nowy stan jest zapisywany jako JSON za pomocą JSON.stringify(), aby można go było przechowywać w localStorage. To zapewnia trwałe przechowywanie danych nawet po ponownym załadowaniu strony lub odświeżeniu aplikacji.
+  //JavaScript arrays have a type of Object. Objects are not compared based on their values but based on the references of the variables. A common and quite straightforward approach you can use to compare two arrays is first to convert these arrays to string form. There are two different methods that you can use: you can decide to convert your array to JSON text using the JSON.stringify() method, or you can use the .toString() method to return your array as a string.
   componentDidUpdate(prevProps, prevState) {
     if (prevState.contacts.toString() !== this.state.contacts.toString()) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
