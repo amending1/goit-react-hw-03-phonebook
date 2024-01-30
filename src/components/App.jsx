@@ -22,7 +22,7 @@ export class App extends Component {
 
   //Metoda jest wywoływana po każdej aktualizacji komponentu. Porównujemy w niej poprzedni stan kontaktów (prevState.contacts) z aktualnym stanem kontaktów (this.state.contacts). Jeśli poprzedni stan jest różny od aktualnego, oznacza to, że stan kontaktów został zaktualizowany( użytkownik doda nowy kontakt lub usunie), więc zapisujemy nowy stan kontaktów do localStorage. Nowy stan jest zapisywany jako JSON za pomocą JSON.stringify(), aby można go było przechowywać w localStorage. To zapewnia trwałe przechowywanie danych nawet po ponownym załadowaniu strony lub odświeżeniu aplikacji.
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.contacts !== this.state.contacts) {
+    if (prevState.contacts.toString() !== this.state.contacts.toString()) {
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
   }
